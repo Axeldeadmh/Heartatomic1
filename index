@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Corazón Atómico</title>
+    <style>
+        body {
+            background-color: #12000b;
+            color: #ffe6f2;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #1a0010;
+            border: 2px solid #DA0886;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 520px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(218, 8, 134, 0.5);
+        }
+
+        #texto {
+            font-size: 1.2em;
+            min-height: 120px;
+            margin-bottom: 25px;
+            white-space: pre-wrap;
+        }
+
+        button {
+            background-color: #DA0886;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(218, 8, 134, 0.6);
+        }
+
+        button:hover {
+            background-color: #ff2fa2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="texto"></div>
+    <button onclick="siguienteParte()">Siguiente</button>
+</div>
+
+<script>
+    const cancion = [
+        "Dime si me estoy volviendo loco",
+        "Dime por favor si a ti te pasa igual :3",
+        "Mi corazón atómico",
+        "En cuenta regresiva está",
+        "Parece que perdí el control",
+        "A mí ya no, ya no me importa nada",
+        "Acaricia mi alma",
+        "Suaviza mi ser",
+        "Esteriliza mi sangre",
+        "Y purifica mi amor",
+        "💗"
+    ];
+
+    let indice = 0;
+
+    function siguienteParte() {
+        if (indice < cancion.length) {
+            document.getElementById("texto").textContent = cancion[indice];
+            indice++;
+        } else {
+            document.getElementById("texto").textContent = "🎶 Fin 🎶";
+        }
+    }
+
+    // Mostrar la primera parte al cargar
+    siguienteParte();
+</script>
+
+</body>
+</html>
