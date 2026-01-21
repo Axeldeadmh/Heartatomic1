@@ -9,126 +9,123 @@
     --rosa: #DA0886;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background:
-        radial-gradient(circle at 20% 20%, #3a0026, transparent 40%),
-        radial-gradient(circle at 80% 80%, #240016, transparent 40%),
-        #0e0008;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(270deg, #12000b, #2a001a, #12000b);
+    background-size: 600% 600%;
+    animation: fondoViaje 20s ease infinite;
     overflow: hidden;
 }
 
-/* 🌈 Fondo psicodélico animado */
-body::before {
-    content: "";
-    position: absolute;
+@keyframes fondoViaje {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🌸 Partículas */
+.particulas {
+    position: fixed;
     inset: 0;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(218, 8, 134, 0.15),
-        transparent
-    );
-    animation: ondas 8s linear infinite;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(218,8,134,0.5) 1px, transparent 1px);
+    background-size: 35px 35px;
+    animation: flotar 25s linear infinite;
 }
 
-@keyframes ondas {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+@keyframes flotar {
+    from { background-position: 0 0; }
+    to { background-position: 0 -600px; }
 }
 
-/* 💗 Caja principal */
 .container {
     position: relative;
-    background: rgba(18, 0, 11, 0.9);
+    background-color: rgba(26,0,16,0.85);
     border: 2px solid var(--rosa);
-    border-radius: 22px;
-    padding: 34px;
+    border-radius: 20px;
+    padding: 35px;
     width: 90%;
     max-width: 520px;
     text-align: center;
-    box-shadow:
-        0 0 25px rgba(218, 8, 134, 0.6),
-        inset 0 0 15px rgba(218, 8, 134, 0.3);
-    animation: latido 2.5s infinite;
+    box-shadow: 0 0 40px rgba(218, 8, 134, 0.8);
+    animation: latido 2.8s infinite;
+    backdrop-filter: blur(4px);
 }
 
 @keyframes latido {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.015); }
-    100% { transform: scale(1); }
+    0%   { box-shadow: 0 0 25px rgba(218,8,134,0.4); }
+    50%  { box-shadow: 0 0 60px rgba(218,8,134,1); }
+    100% { box-shadow: 0 0 25px rgba(218,8,134,0.4); }
 }
 
 h1 {
     color: var(--rosa);
     margin-bottom: 22px;
     letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(218, 8, 134, 0.9);
+    animation: colorViaje 6s linear infinite;
 }
 
-/* ✨ Texto psicodélico */
+@keyframes colorViaje {
+    0% { color: #DA0886; }
+    50% { color: #ff2fa2; }
+    100% { color: #DA0886; }
+}
+
 #texto {
     color: #ffe6f2;
     font-size: 1.3em;
     min-height: 120px;
     margin-bottom: 30px;
-    white-space: pre-wrap;
     opacity: 0;
-    transform: translateY(12px);
-    filter: blur(2px);
-    transition:
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        filter 0.6s ease;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    text-shadow: 0 0 15px rgba(218,8,134,0.7);
 }
 
 #texto.mostrar {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
+    animation: flotarTexto 4s ease-in-out infinite;
 }
 
-/* 🔘 Botón */
+@keyframes flotarTexto {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+
 button {
-    background: linear-gradient(135deg, var(--rosa), #ff3cb4);
+    background-color: var(--rosa);
     color: white;
     border: none;
     padding: 14px 36px;
-    border-radius: 40px;
+    border-radius: 30px;
     font-size: 1em;
     cursor: pointer;
-    letter-spacing: 1px;
-    box-shadow:
-        0 0 15px rgba(218, 8, 134, 0.8),
-        inset 0 0 8px rgba(255, 255, 255, 0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 20px rgba(218, 8, 134, 0.9);
+    transition: transform 0.2s, background-color 0.3s;
 }
 
 button:hover {
+    background-color: #ff2fa2;
     transform: scale(1.08);
-    box-shadow:
-        0 0 25px rgba(218, 8, 134, 1),
-        inset 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 button:disabled {
-    background: #6a003f;
-    cursor: default;
+    background-color: #6a003f;
     box-shadow: none;
 }
 </style>
 </head>
 
 <body>
+
+<div class="particulas"></div>
 
 <div class="container">
     <h1>Corazón Atómico</h1>
@@ -154,6 +151,7 @@ const cancion = [
         "Esteriliza mi sangre 🩸",
         "y purifica mi amor 💖",
         "y purifica mi amor 💗"
+
 ];
 
 let indice = 0;
@@ -162,9 +160,16 @@ const boton = document.getElementById("boton");
 
 function mostrarLinea(linea) {
     texto.classList.remove("mostrar");
-    void texto.offsetWidth; // reinicia animación
-    texto.textContent = linea;
-    texto.classList.add("mostrar");
+    setTimeout(() => {
+        texto.textContent = linea;
+        texto.classList.add("mostrar");
+
+        document.querySelector(".container").animate([
+            { transform: "scale(1)" },
+            { transform: "scale(1.04)" },
+            { transform: "scale(1)" }
+        ], { duration: 400 });
+    }, 250);
 }
 
 boton.addEventListener("click", () => {
@@ -173,15 +178,14 @@ boton.addEventListener("click", () => {
         indice++;
 
         if (indice === cancion.length) {
-            boton.textContent = "Fin";
+            boton.textContent = "Viaje completo";
         }
     } else {
-        mostrarLinea("🎶 Corazón Atómico – Zoé 🎶 te amo :3 ");
+        mostrarLinea("🌌 Corazón Atómico – Zoé 🌌");
         boton.disabled = true;
     }
 });
 
-// Primera línea
 mostrarLinea(cancion[indice]);
 indice++;
 </script>
