@@ -1,59 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Corazón Atómico</title>
+<meta charset="UTF-8">
+<title>Corazón Atómico</title>
 
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: radial-gradient(circle at top, #2a001a, #12000b);
-            font-family: Arial, sans-serif;
-        }
+<style>
+:root {
+    --rosa: #DA0886;
+}
 
-        .container {
-            background-color: #1a0010;
-            border: 2px solid #DA0886;
-            border-radius: 18px;
-            padding: 30px;
-            width: 90%;
-            max-width: 520px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(218, 8, 134, 0.7);
-        }
+* {
+    box-sizing: border-box;
+}
 
-        h1 {
-            color: #DA0886;
-            margin-bottom: 20px;
-        }
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        radial-gradient(circle at 20% 20%, #3a0026, transparent 40%),
+        radial-gradient(circle at 80% 80%, #240016, transparent 40%),
+        #0e0008;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
 
-        #texto {
-            color: #ffe6f2;
-            font-size: 1.25em;
-            min-height: 120px;
-            margin-bottom: 25px;
-            white-space: pre-wrap;
-        }
+/* 🌈 Fondo psicodélico animado */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(218, 8, 134, 0.15),
+        transparent
+    );
+    animation: ondas 8s linear infinite;
+}
 
-        button {
-            background-color: #DA0886;
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 1em;
-            cursor: pointer;
-        }
+@keyframes ondas {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 
-        button:disabled {
-            background-color: #6a003f;
-            cursor: default;
-        }
-    </style>
+/* 💗 Caja principal */
+.container {
+    position: relative;
+    background: rgba(18, 0, 11, 0.9);
+    border: 2px solid var(--rosa);
+    border-radius: 22px;
+    padding: 34px;
+    width: 90%;
+    max-width: 520px;
+    text-align: center;
+    box-shadow:
+        0 0 25px rgba(218, 8, 134, 0.6),
+        inset 0 0 15px rgba(218, 8, 134, 0.3);
+    animation: latido 2.5s infinite;
+}
+
+@keyframes latido {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.015); }
+    100% { transform: scale(1); }
+}
+
+h1 {
+    color: var(--rosa);
+    margin-bottom: 22px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(218, 8, 134, 0.9);
+}
+
+/* ✨ Texto psicodélico */
+#texto {
+    color: #ffe6f2;
+    font-size: 1.3em;
+    min-height: 120px;
+    margin-bottom: 30px;
+    white-space: pre-wrap;
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(2px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+#texto.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* 🔘 Botón */
+button {
+    background: linear-gradient(135deg, var(--rosa), #ff3cb4);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 40px;
+    font-size: 1em;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow:
+        0 0 15px rgba(218, 8, 134, 0.8),
+        inset 0 0 8px rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: scale(1.08);
+    box-shadow:
+        0 0 25px rgba(218, 8, 134, 1),
+        inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+button:disabled {
+    background: #6a003f;
+    cursor: default;
+    box-shadow: none;
+}
+</style>
 </head>
 
 <body>
@@ -65,44 +137,49 @@
 </div>
 
 <script>
-    const cancion = [
-        "Dime si me estoy volviendo loco 🦝",
-        "Dime por favor, si a ti te pasa igual 🦝🖤🦝",
-        "Mi corazón atómico ❤️",
-        "En cuenta regresiva está ⌚",
-        "Parece que perdí el control 🎛️",
-        "A mí ya no, ya no me importa nada ❤️‍🩹",
-        "🎵🎶🎶🎵",
-        "Acaricia mi alma 🦖",
-        "Suaviza mi ser 🖤",
-        "Esteriliza mi sangre 🩸",
-        "Y purifica el amor 💓"
-    ];
+const cancion = [
+    "Dime si me estoy volviendo loco 🦝",
+    "Dime por favor, si a ti te pasa igual 🖤",
+    "Mi corazón atómico ❤️",
+    "En cuenta regresiva está ⌚",
+    "Parece que perdí el control 🎛️",
+    "A mí ya no, ya no me importa nada ❤️‍🩹",
+    "🎵🎶🎶🎵",
+    "Acaricia mi alma",
+    "Suaviza mi ser",
+    "Esteriliza mi sangre",
+    "Y purifica mi amor 💓"
+];
 
-    let indice = 0;
+let indice = 0;
+const texto = document.getElementById("texto");
+const boton = document.getElementById("boton");
 
-    const texto = document.getElementById("texto");
-    const boton = document.getElementById("boton");
+function mostrarLinea(linea) {
+    texto.classList.remove("mostrar");
+    void texto.offsetWidth; // reinicia animación
+    texto.textContent = linea;
+    texto.classList.add("mostrar");
+}
 
-    boton.addEventListener("click", () => {
-        if (indice < cancion.length) {
-            texto.textContent = cancion[indice];
-            indice++;
+boton.addEventListener("click", () => {
+    if (indice < cancion.length) {
+        mostrarLinea(cancion[indice]);
+        indice++;
 
-            if (indice === cancion.length) {
-                boton.textContent = "Fin";
-            }
-        } else {
-            texto.textContent = "🎶 Corazón Atómico – Zoé (te amo :3) 🎶";
-            boton.disabled = true;
+        if (indice === cancion.length) {
+            boton.textContent = "Fin";
         }
-    });
+    } else {
+        mostrarLinea("🎶 Corazón Atómico – Zoé 🎶");
+        boton.disabled = true;
+    }
+});
 
-    // mostrar la primera línea
-    texto.textContent = cancion[indice];
-    indice++;
+// Primera línea
+mostrarLinea(cancion[indice]);
+indice++;
 </script>
 
 </body>
 </html>
-
