@@ -9,10 +9,10 @@
 :root {
     --rosa: #DA0886;
     --bpm: 93;
-    --beat: calc(60s / var(--bpm)); /* ≈ 0.645s */
+    --beat: calc(60s / var(--bpm));
 }
 
-/* 🌈 FONDO PSICODÉLICO */
+/* 🌈 FONDO */
 body {
     margin: 0;
     height: 100vh;
@@ -32,6 +32,33 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+/* 🖤 MANCHA PSICODÉLICA */
+.mancha {
+    position: fixed;
+    inset: 0;
+    background-image: url("mancha.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70vmin;
+    opacity: 0.28;
+    filter: blur(2px) saturate(130%);
+    animation: manchaViaje calc(var(--beat) * 48) ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes manchaViaje {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate(-12px, 18px) scale(1.06) rotate(2deg);
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+}
+
 /* ✨ PARTÍCULAS */
 .particulas {
     position: fixed;
@@ -40,6 +67,7 @@ body {
     background-image: radial-gradient(circle, rgba(218,8,134,0.5) 1px, transparent 1px);
     background-size: 35px 35px;
     animation: flotar calc(var(--beat) * 64) linear infinite;
+    z-index: 1;
 }
 
 @keyframes flotar {
@@ -49,6 +77,8 @@ body {
 
 /* 💓 CONTENEDOR */
 .container {
+    position: relative;
+    z-index: 2;
     background-color: rgba(26,0,16,0.88);
     border: 2px solid var(--rosa);
     border-radius: 20px;
@@ -134,6 +164,7 @@ button:disabled {
 
 <body>
 
+<div class="mancha"></div>
 <div class="particulas"></div>
 
 <div class="container">
@@ -143,14 +174,11 @@ button:disabled {
 </div>
 
 <script>
-/* 🎵 BPM */
 const BPM = 93;
 const beatMs = 60000 / BPM;
 
-/* 🎶 CANCIÓN */
 const cancion = [
-    ":3",
-        "Dime si me estoy volviendo loco 🦝",
+"Dime si me estoy volviendo loco 🦝",
         "Dime por favor, si a ti te pasa igual 🦝🖤🦝",
         "Mi corazón atómico ❤️",
         "En cuenta regresiva está ⌚",
@@ -197,15 +225,14 @@ boton.addEventListener("click", () => {
         indice++;
 
         if (indice === cancion.length) {
-            boton.textContent = ":3 ";
+            boton.textContent = "Viaje completo";
         }
     } else {
-        mostrarLinea(" Corazón Atómico – Zoé /  te amo ");
+        mostrarLinea("🌌 Corazón Atómico – Zoé 🌌");
         boton.disabled = true;
     }
 });
 
-/* 🚀 INICIO */
 mostrarLinea(cancion[indice]);
 indice++;
 </script>
