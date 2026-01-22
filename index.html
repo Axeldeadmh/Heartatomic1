@@ -5,113 +5,127 @@
 <title>Corazón Atómico</title>
 
 <style>
-    /* ===== BASE ===== */
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle at top, #2a001a, #12000b);
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-    }
+/* ===== BASE ===== */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
 
-    /* ===== MANCHA PSICODÉLICA ===== */
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background-image: url("mancha.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 150%;
-        opacity: 0.35;
-        filter: blur(14px) contrast(160%);
-        z-index: -1;
-        animation: manchaViva 12s ease-in-out infinite alternate;
-    }
+    /* Fondo rosa más brillante */
+    background:
+        radial-gradient(circle at top, #ff4bbd, #2a001a 55%, #12000b);
+}
 
-    @keyframes manchaViva {
-        0% {
-            transform: scale(1) rotate(0deg);
-        }
-        50% {
-            transform: scale(1.15) rotate(5deg);
-        }
-        100% {
-            transform: scale(1.3) rotate(-5deg);
-        }
-    }
+/* ===== MANCHA PSICODÉLICA ===== */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("mancha.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 75%;
+    opacity: 0.45;
+    filter: blur(8px) contrast(190%) brightness(0.85);
+    z-index: -1;
+    animation: manchaViva 12s ease-in-out infinite alternate;
+}
 
-    /* ===== CONTENEDOR ===== */
-    .container {
-        background-color: rgba(26, 0, 16, 0.85);
-        border: 2px solid #DA0886;
-        border-radius: 20px;
-        padding: 32px;
-        width: 90%;
-        max-width: 520px;
-        text-align: center;
-        box-shadow: 0 0 35px rgba(218, 8, 134, 0.7);
-        animation: latido 2.58s infinite;
-        backdrop-filter: blur(6px);
-    }
+/* Glow rosado de fondo */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 75, 189, 0.18), transparent 70%);
+    z-index: -2;
+    animation: pulso 2.58s infinite;
+}
 
-    @keyframes latido {
-        0%   { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
-        50%  { box-shadow: 0 0 45px rgba(218, 8, 134, 0.9); }
-        100% { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
-    }
+/* ===== ANIMACIONES ===== */
+@keyframes manchaViva {
+    0%   { transform: scale(0.9) rotate(0deg); }
+    50%  { transform: scale(1.05) rotate(3deg); }
+    100% { transform: scale(0.9) rotate(-3deg); }
+}
 
-    h1 {
-        color: #DA0886;
-        margin-bottom: 20px;
-        letter-spacing: 1px;
-        text-shadow: 0 0 10px rgba(218, 8, 134, 0.8);
-    }
+@keyframes pulso {
+    0%   { opacity: 0.4; }
+    50%  { opacity: 0.8; }
+    100% { opacity: 0.4; }
+}
 
-    /* ===== TEXTO ===== */
-    #texto {
-        color: #ffe6f2;
-        font-size: 1.25em;
-        min-height: 120px;
-        margin-bottom: 28px;
-        white-space: pre-wrap;
-        opacity: 0;
-        transform: translateY(14px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-        text-shadow: 0 0 12px rgba(218, 8, 134, 0.7);
-    }
+/* ===== CONTENEDOR ===== */
+.container {
+    background-color: rgba(26, 0, 16, 0.85);
+    border: 2px solid #DA0886;
+    border-radius: 20px;
+    padding: 32px;
+    width: 90%;
+    max-width: 520px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    animation: latido 2.58s infinite;
+    box-shadow: 0 0 35px rgba(218, 8, 134, 0.7);
+}
 
-    #texto.mostrar {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes latido {
+    0%   { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
+    50%  { box-shadow: 0 0 45px rgba(218, 8, 134, 0.9); }
+    100% { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
+}
 
-    /* ===== BOTÓN ===== */
-    button {
-        background-color: #DA0886;
-        color: white;
-        border: none;
-        padding: 12px 34px;
-        border-radius: 30px;
-        font-size: 1em;
-        cursor: pointer;
-        box-shadow: 0 0 15px rgba(218, 8, 134, 0.8);
-        transition: transform 0.2s, background-color 0.3s;
-    }
+h1 {
+    color: #DA0886;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(218, 8, 134, 0.8);
+}
 
-    button:hover {
-        background-color: #ff2fa2;
-        transform: scale(1.08);
-    }
+/* ===== TEXTO ===== */
+#texto {
+    color: #ffe6f2;
+    font-size: 1.25em;
+    min-height: 120px;
+    margin-bottom: 28px;
+    white-space: pre-wrap;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    text-shadow: 0 0 12px rgba(218, 8, 134, 0.7);
+}
 
-    button:disabled {
-        background-color: #6a003f;
-        cursor: default;
-        box-shadow: none;
-    }
+#texto.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== BOTÓN ===== */
+button {
+    background-color: #DA0886;
+    color: white;
+    border: none;
+    padding: 12px 34px;
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(218, 8, 134, 0.8);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff2fa2;
+    transform: scale(1.08);
+}
+
+button:disabled {
+    background-color: #6a003f;
+    cursor: default;
+    box-shadow: none;
+}
 </style>
 </head>
 
@@ -124,8 +138,9 @@
 </div>
 
 <script>
-    const cancion = [
-        "jijjiiji :3",
+/* ===== LETRA EDITABLE ===== */
+const cancion = [
+        "jijijiji :3",
         "Dime si me estoy volviendo loco 🦝",
         "Dime por favor, si a ti te pasa igual 🦝🖤🦝",
         "Mi corazón atómico ❤️",
@@ -142,36 +157,36 @@
         "Esteriliza mi sangre 🩸",
         "y purifica mi amor 💖",
         "y purifica mi amor 💗"
-    ];
+];
 
-    let indice = 0;
-    const texto = document.getElementById("texto");
-    const boton = document.getElementById("boton");
+let indice = 0;
+const texto = document.getElementById("texto");
+const boton = document.getElementById("boton");
 
-    function mostrarTexto(contenido) {
-        texto.classList.remove("mostrar");
-        void texto.offsetWidth; // reinicia animación
-        texto.textContent = contenido;
-        texto.classList.add("mostrar");
-    }
+function mostrarTexto(contenido) {
+    texto.classList.remove("mostrar");
+    void texto.offsetWidth; // reinicia animación
+    texto.textContent = contenido;
+    texto.classList.add("mostrar");
+}
 
-    boton.addEventListener("click", () => {
-        if (indice < cancion.length) {
-            mostrarTexto(cancion[indice]);
-            indice++;
+boton.addEventListener("click", () => {
+    if (indice < cancion.length) {
+        mostrarTexto(cancion[indice]);
+        indice++;
 
-            if (indice === cancion.length) {
-                boton.textContent = "Fin";
-            }
-        } else {
-            mostrarTexto(" Corazón Atómico – Zoé / jijijij te amo ");
-            boton.disabled = true;
+        if (indice === cancion.length) {
+            boton.textContent = "Fin";
         }
-    });
+    } else {
+        mostrarTexto("🎶 Corazón Atómico – Zoé 🎶");
+        boton.disabled = true;
+    }
+});
 
-    // Primera línea
-    mostrarTexto(cancion[indice]);
-    indice++;
+/* Primera línea al cargar */
+mostrarTexto(cancion[indice]);
+indice++;
 </script>
 
 </body>
