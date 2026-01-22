@@ -19,7 +19,7 @@ body {
         radial-gradient(circle at top, #ff4bbd, #2a001a 55%, #12000b);
 }
 
-/* ===== MANCHA ===== */
+/* ===== MANCHA PSICODÉLICA ===== */
 body::before {
     content: "";
     position: fixed;
@@ -34,7 +34,7 @@ body::before {
     animation: manchaViva 12s ease-in-out infinite alternate;
 }
 
-/* ===== GLOW 93 BPM ===== */
+/* ===== GLOW DE FONDO — 93 BPM ===== */
 body::after {
     content: "";
     position: fixed;
@@ -57,7 +57,7 @@ body::after {
     100% { transform: scale(0.9) rotate(-3deg); }
 }
 
-/* ===== CONTENEDOR ===== */
+/* ===== CONTENEDOR (ANIMACIÓN SUAVE) ===== */
 .container {
     background-color: rgba(26, 0, 16, 0.85);
     border: 2px solid #DA0886;
@@ -68,14 +68,23 @@ body::after {
     text-align: center;
     backdrop-filter: blur(6px);
 
-    animation: latido 0.645s infinite;
+    animation: latidoSuave 1s infinite;
     box-shadow: 0 0 35px rgba(218, 8, 134, 0.7);
 }
 
-@keyframes latido {
-    0%   { transform: scale(1); box-shadow: 0 0 20px rgba(218,8,134,0.4); }
-    50%  { transform: scale(1.02); box-shadow: 0 0 45px rgba(218,8,134,0.95); }
-    100% { transform: scale(1); box-shadow: 0 0 20px rgba(218,8,134,0.4); }
+@keyframes latidoSuave {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 22px rgba(218,8,134,0.5);
+    }
+    50% {
+        transform: scale(1.01);
+        box-shadow: 0 0 30px rgba(218,8,134,0.75);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 22px rgba(218,8,134,0.5);
+    }
 }
 
 h1 {
@@ -94,8 +103,8 @@ h1 {
     white-space: pre-wrap;
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    text-shadow: 0 0 14px rgba(218, 8, 134, 0.8);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    text-shadow: 0 0 12px rgba(218, 8, 134, 0.7);
 }
 
 #texto.mostrar {
@@ -112,7 +121,7 @@ button {
     border-radius: 30px;
     font-size: 1em;
     cursor: pointer;
-    box-shadow: 0 0 18px rgba(218, 8, 134, 0.9);
+    box-shadow: 0 0 15px rgba(218, 8, 134, 0.8);
     transition: transform 0.2s, background-color 0.3s;
 }
 
@@ -138,6 +147,7 @@ button:disabled {
 </div>
 
 <script>
+/* ===== LETRA EDITABLE ===== */
 const cancion = [
     "jijijiji :3",
         "Dime si me estoy volviendo loco 🦝",
@@ -173,17 +183,17 @@ boton.addEventListener("click", () => {
     if (indice < cancion.length) {
         mostrarTexto(cancion[indice]);
         indice++;
-        if (indice === cancion.length) boton.textContent = "Fin";
+        if (indice === cancion.length) boton.textContent = " :3 ";
     } else {
-        mostrarTexto("🎶 Corazón Atómico – Zoé 🎶");
+        mostrarTexto(" Corazón Atómico – Zoé / jiijij te amo");
         boton.disabled = true;
     }
 });
 
+/* Primera línea */
 mostrarTexto(cancion[indice]);
 indice++;
 </script>
 
 </body>
 </html>
-
