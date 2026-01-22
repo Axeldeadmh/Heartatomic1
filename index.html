@@ -5,167 +5,117 @@
 <title>Corazón Atómico</title>
 
 <style>
-/* 🎵 BPM GLOBAL */
-:root {
-    --rosa: #DA0886;
-    --bpm: 93;
-    --beat: calc(60s / var(--bpm));
-}
-
-/* 🌈 FONDO */
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(270deg, #12000b, #2a001a, #12000b);
-    background-size: 600% 600%;
-    animation: fondoViaje calc(var(--beat) * 32) ease infinite;
-    overflow: hidden;
-}
-
-@keyframes fondoViaje {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* 🖤 MANCHA PSICODÉLICA */
-.mancha {
-    position: fixed;
-    inset: 0;
-    background-image: url("mancha.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 70vmin;
-    opacity: 0.28;
-    filter: blur(2px) saturate(130%);
-    animation: manchaViaje calc(var(--beat) * 48) ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes manchaViaje {
-    0% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
+    /* ===== BASE ===== */
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #2a001a, #12000b);
+        font-family: Arial, sans-serif;
+        overflow: hidden;
     }
-    50% {
-        transform: translate(-12px, 18px) scale(1.06) rotate(2deg);
+
+    /* ===== MANCHA PSICODÉLICA ===== */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("mancha.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 150%;
+        opacity: 0.35;
+        filter: blur(14px) contrast(160%);
+        z-index: -1;
+        animation: manchaViva 12s ease-in-out infinite alternate;
     }
-    100% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
+
+    @keyframes manchaViva {
+        0% {
+            transform: scale(1) rotate(0deg);
+        }
+        50% {
+            transform: scale(1.15) rotate(5deg);
+        }
+        100% {
+            transform: scale(1.3) rotate(-5deg);
+        }
     }
-}
 
-/* ✨ PARTÍCULAS */
-.particulas {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(218,8,134,0.5) 1px, transparent 1px);
-    background-size: 35px 35px;
-    animation: flotar calc(var(--beat) * 64) linear infinite;
-    z-index: 1;
-}
+    /* ===== CONTENEDOR ===== */
+    .container {
+        background-color: rgba(26, 0, 16, 0.85);
+        border: 2px solid #DA0886;
+        border-radius: 20px;
+        padding: 32px;
+        width: 90%;
+        max-width: 520px;
+        text-align: center;
+        box-shadow: 0 0 35px rgba(218, 8, 134, 0.7);
+        animation: latido 2.58s infinite;
+        backdrop-filter: blur(6px);
+    }
 
-@keyframes flotar {
-    from { background-position: 0 0; }
-    to { background-position: 0 -600px; }
-}
+    @keyframes latido {
+        0%   { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
+        50%  { box-shadow: 0 0 45px rgba(218, 8, 134, 0.9); }
+        100% { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
+    }
 
-/* 💓 CONTENEDOR */
-.container {
-    position: relative;
-    z-index: 2;
-    background-color: rgba(26,0,16,0.88);
-    border: 2px solid var(--rosa);
-    border-radius: 20px;
-    padding: 35px;
-    width: 90%;
-    max-width: 520px;
-    text-align: center;
-    box-shadow: 0 0 40px rgba(218,8,134,0.8);
-    animation: latido calc(var(--beat) * 2) infinite ease-in-out;
-    backdrop-filter: blur(4px);
-}
+    h1 {
+        color: #DA0886;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+        text-shadow: 0 0 10px rgba(218, 8, 134, 0.8);
+    }
 
-@keyframes latido {
-    0%   { box-shadow: 0 0 25px rgba(218,8,134,0.4); }
-    50%  { box-shadow: 0 0 65px rgba(218,8,134,1); }
-    100% { box-shadow: 0 0 25px rgba(218,8,134,0.4); }
-}
+    /* ===== TEXTO ===== */
+    #texto {
+        color: #ffe6f2;
+        font-size: 1.25em;
+        min-height: 120px;
+        margin-bottom: 28px;
+        white-space: pre-wrap;
+        opacity: 0;
+        transform: translateY(14px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        text-shadow: 0 0 12px rgba(218, 8, 134, 0.7);
+    }
 
-/* 🧠 TÍTULO */
-h1 {
-    color: var(--rosa);
-    margin-bottom: 22px;
-    letter-spacing: 2px;
-    animation: colorViaje calc(var(--beat) * 8) linear infinite;
-}
+    #texto.mostrar {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-@keyframes colorViaje {
-    0% { color: #DA0886; }
-    50% { color: #ff2fa2; }
-    100% { color: #DA0886; }
-}
+    /* ===== BOTÓN ===== */
+    button {
+        background-color: #DA0886;
+        color: white;
+        border: none;
+        padding: 12px 34px;
+        border-radius: 30px;
+        font-size: 1em;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(218, 8, 134, 0.8);
+        transition: transform 0.2s, background-color 0.3s;
+    }
 
-/* 🌊 TEXTO */
-#texto {
-    color: #ffe6f2;
-    font-size: 1.3em;
-    min-height: 120px;
-    margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(10px);
-    text-shadow: 0 0 15px rgba(218,8,134,0.7);
-    transition:
-        opacity calc(var(--beat) * 1) ease,
-        transform calc(var(--beat) * 1) ease;
-}
+    button:hover {
+        background-color: #ff2fa2;
+        transform: scale(1.08);
+    }
 
-#texto.mostrar {
-    opacity: 1;
-    transform: translateY(0);
-    animation: flotarTexto calc(var(--beat) * 4) ease-in-out infinite;
-}
-
-@keyframes flotarTexto {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-}
-
-/* 🔘 BOTÓN */
-button {
-    background-color: var(--rosa);
-    color: white;
-    border: none;
-    padding: 14px 36px;
-    border-radius: 30px;
-    font-size: 1em;
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(218,8,134,0.9);
-    transition: transform 0.2s, background-color 0.3s;
-}
-
-button:hover {
-    background-color: #ff2fa2;
-    transform: scale(1.08);
-}
-
-button:disabled {
-    background-color: #6a003f;
-    box-shadow: none;
-}
+    button:disabled {
+        background-color: #6a003f;
+        cursor: default;
+        box-shadow: none;
+    }
 </style>
 </head>
 
 <body>
-
-<div class="mancha"></div>
-<div class="particulas"></div>
 
 <div class="container">
     <h1>Corazón Atómico</h1>
@@ -174,11 +124,9 @@ button:disabled {
 </div>
 
 <script>
-const BPM = 93;
-const beatMs = 60000 / BPM;
-
-const cancion = [
-"Dime si me estoy volviendo loco 🦝",
+    const cancion = [
+        "jijjiiji :3",
+        "Dime si me estoy volviendo loco 🦝",
         "Dime por favor, si a ti te pasa igual 🦝🖤🦝",
         "Mi corazón atómico ❤️",
         "En cuenta regresiva está ⌚",
@@ -194,47 +142,36 @@ const cancion = [
         "Esteriliza mi sangre 🩸",
         "y purifica mi amor 💖",
         "y purifica mi amor 💗"
-];
+    ];
 
-let indice = 0;
-const texto = document.getElementById("texto");
-const boton = document.getElementById("boton");
-const container = document.querySelector(".container");
+    let indice = 0;
+    const texto = document.getElementById("texto");
+    const boton = document.getElementById("boton");
 
-function mostrarLinea(linea) {
-    texto.classList.remove("mostrar");
-
-    setTimeout(() => {
-        texto.textContent = linea;
+    function mostrarTexto(contenido) {
+        texto.classList.remove("mostrar");
+        void texto.offsetWidth; // reinicia animación
+        texto.textContent = contenido;
         texto.classList.add("mostrar");
-
-        container.animate([
-            { transform: "scale(1)" },
-            { transform: "scale(1.045)" },
-            { transform: "scale(1)" }
-        ], {
-            duration: beatMs * 2,
-            easing: "ease-in-out"
-        });
-    }, beatMs / 2);
-}
-
-boton.addEventListener("click", () => {
-    if (indice < cancion.length) {
-        mostrarLinea(cancion[indice]);
-        indice++;
-
-        if (indice === cancion.length) {
-            boton.textContent = "Viaje completo";
-        }
-    } else {
-        mostrarLinea("🌌 Corazón Atómico – Zoé 🌌");
-        boton.disabled = true;
     }
-});
 
-mostrarLinea(cancion[indice]);
-indice++;
+    boton.addEventListener("click", () => {
+        if (indice < cancion.length) {
+            mostrarTexto(cancion[indice]);
+            indice++;
+
+            if (indice === cancion.length) {
+                boton.textContent = "Fin";
+            }
+        } else {
+            mostrarTexto(" Corazón Atómico – Zoé / jijijij te amo ");
+            boton.disabled = true;
+        }
+    });
+
+    // Primera línea
+    mostrarTexto(cancion[indice]);
+    indice++;
 </script>
 
 </body>
