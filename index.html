@@ -12,27 +12,34 @@
         justify-content: center;
         align-items: center;
         background:
-            radial-gradient(circle at center, #ff4fbf 0%, #2a001a 55%, #12000b 100%);
+            radial-gradient(circle at center, #ff5fc9 0%, #2a001a 55%, #12000b 100%);
         font-family: Arial, sans-serif;
         overflow: hidden;
+        animation: pulsoFondo 0.645s infinite alternate;
+    }
+
+    /* Pulso fondo 93 BPM */
+    @keyframes pulsoFondo {
+        from { filter: brightness(1); }
+        to { filter: brightness(1.12); }
     }
 
     /* Mancha */
     body::before {
         content: "";
         position: absolute;
-        width: 420px;
-        height: 420px;
+        width: 360px;
+        height: 360px;
         background: url("mancha.png") no-repeat center/contain;
         opacity: 0.55;
-        filter: blur(1px) brightness(1.2);
+        filter: blur(1px) brightness(1.25);
         animation: flotar 12s ease-in-out infinite alternate;
         z-index: 0;
     }
 
     @keyframes flotar {
-        0% { transform: scale(1) rotate(0deg); }
-        100% { transform: scale(1.08) rotate(6deg); }
+        from { transform: scale(1) rotate(0deg); }
+        to { transform: scale(1.08) rotate(6deg); }
     }
 
     .container {
@@ -45,14 +52,14 @@
         max-width: 520px;
         text-align: center;
         box-shadow: 0 0 25px rgba(218, 8, 134, 0.6);
-        animation: latido 2.6s infinite;
+        animation: latido 0.645s infinite;
         z-index: 1;
     }
 
+    /* Latido 93 BPM */
     @keyframes latido {
-        0% { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
-        50% { box-shadow: 0 0 32px rgba(218, 8, 134, 0.75); }
-        100% { box-shadow: 0 0 20px rgba(218, 8, 134, 0.4); }
+        from { box-shadow: 0 0 18px rgba(218, 8, 134, 0.45); }
+        to   { box-shadow: 0 0 34px rgba(218, 8, 134, 0.85); }
     }
 
     h1 {
@@ -61,6 +68,7 @@
         letter-spacing: 1px;
     }
 
+    /* Texto tranquilo */
     #texto {
         color: #ffe6f2;
         font-size: 1.25em;
@@ -112,11 +120,11 @@
 
 <script>
     const cancion = [
-        "jijijiji picale",
-        "🎵🎶🎵🎶🎶",
+        "jijijij picale",
+        "🎵🎶🎵🎶🎵🎶",
         "Dime si me estoy volviendo loco 🦝",
-        "Dime por favor 🦕",
-        "Si a ti te pasa igual 🦝🖤🦝",
+        "Dime por favor 🌸",
+        "si a ti te pasa igual 🦝🖤🦝",
         "Mi corazón atómico ❤️",
         "En cuenta regresiva está ⌚",
         "Parece que perdí el control 🎛️",
@@ -149,7 +157,7 @@
 
     boton.addEventListener("click", () => {
 
-        // 🔊 Inicia audio SOLO en el primer click
+        // Audio inicia en el primer clic
         if (!audioIniciado) {
             audio.volume = 0.7;
             audio.play();
@@ -161,19 +169,19 @@
             indice++;
 
             if (indice === cancion.length) {
-                boton.textContent = "Fin";
+                boton.textContent = ":3 jijiji";
             }
-
         } else {
-            mostrarTexto("🎶 Corazón Atómico – Zoé 🎶");
+            mostrarTexto("aqui termina jijiji te amo");
             boton.disabled = true;
         }
     });
 
-    // Primera línea al cargar
+    // Primera línea
     mostrarTexto(cancion[indice]);
     indice++;
 </script>
 
 </body>
 </html>
+
