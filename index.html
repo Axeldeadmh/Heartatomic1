@@ -11,40 +11,27 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background:
-            radial-gradient(circle at center, #ff5fc9 0%, #2a001a 55%, #12000b 100%);
+        background: radial-gradient(circle at center, #ff7ad9 0%, #2a001a 55%, #12000b 100%);
         font-family: Arial, sans-serif;
         overflow: hidden;
-        animation: pulsoFondo 0.645s infinite alternate;
     }
 
-    /* Pulso fondo 93 BPM */
-    @keyframes pulsoFondo {
-        from { filter: brightness(1); }
-        to { filter: brightness(1.12); }
-    }
-
-    /* Mancha */
+    /* MANCHA */
     body::before {
         content: "";
-        position: absolute;
-        width: 360px;
-        height: 360px;
-        background: url("mancha.png") no-repeat center/contain;
-        opacity: 0.55;
-        filter: blur(1px) brightness(1.25);
-        animation: flotar 12s ease-in-out infinite alternate;
+        position: fixed;
+        width: 460px;          /* 👈 un poquito más grande */
+        height: 460px;         /* 👈 un poquito más grande */
+        background: url("mancha.png") no-repeat center / contain;
+        opacity: 0.6;
+        filter: blur(1px) brightness(1.3);
         z-index: 0;
-    }
-
-    @keyframes flotar {
-        from { transform: scale(1) rotate(0deg); }
-        to { transform: scale(1.08) rotate(6deg); }
     }
 
     .container {
         position: relative;
-        background-color: rgba(26, 0, 16, 0.92);
+        z-index: 1;
+        background-color: #1a0010;
         border: 2px solid #DA0886;
         border-radius: 20px;
         padding: 32px;
@@ -52,14 +39,6 @@
         max-width: 520px;
         text-align: center;
         box-shadow: 0 0 25px rgba(218, 8, 134, 0.6);
-        animation: latido 0.645s infinite;
-        z-index: 1;
-    }
-
-    /* Latido 93 BPM */
-    @keyframes latido {
-        from { box-shadow: 0 0 18px rgba(218, 8, 134, 0.45); }
-        to   { box-shadow: 0 0 34px rgba(218, 8, 134, 0.85); }
     }
 
     h1 {
@@ -68,7 +47,6 @@
         letter-spacing: 1px;
     }
 
-    /* Texto tranquilo */
     #texto {
         color: #ffe6f2;
         font-size: 1.25em;
@@ -76,7 +54,7 @@
         margin-bottom: 28px;
         white-space: pre-wrap;
         opacity: 0;
-        transition: opacity 0.6s ease;
+        transition: opacity 0.4s ease;
     }
 
     #texto.mostrar {
@@ -92,12 +70,10 @@
         font-size: 1em;
         cursor: pointer;
         box-shadow: 0 0 12px rgba(218, 8, 134, 0.7);
-        transition: transform 0.2s, background-color 0.3s;
     }
 
     button:hover {
         background-color: #ff2fa2;
-        transform: scale(1.05);
     }
 
     button:disabled {
@@ -110,8 +86,6 @@
 
 <body>
 
-<audio id="musica" src="audio.mp3" loop></audio>
-
 <div class="container">
     <h1>Corazón Atómico</h1>
     <div id="texto"></div>
@@ -123,7 +97,7 @@
         "jijijij picale",
         "🎵🎶🎵🎶🎵🎶",
         "Dime si me estoy volviendo loco 🦝",
-        "Dime por favor 🌸",
+        "Dime por favor 🌸", 
         "si a ti te pasa igual 🦝🖤🦝",
         "Mi corazón atómico ❤️",
         "En cuenta regresiva está ⌚",
@@ -144,8 +118,6 @@
     let indice = 0;
     const texto = document.getElementById("texto");
     const boton = document.getElementById("boton");
-    const audio = document.getElementById("musica");
-    let audioIniciado = false;
 
     function mostrarTexto(contenido) {
         texto.classList.remove("mostrar");
@@ -156,32 +128,23 @@
     }
 
     boton.addEventListener("click", () => {
-
-        // Audio inicia en el primer clic
-        if (!audioIniciado) {
-            audio.volume = 0.7;
-            audio.play();
-            audioIniciado = true;
-        }
-
         if (indice < cancion.length) {
             mostrarTexto(cancion[indice]);
             indice++;
 
             if (indice === cancion.length) {
-                boton.textContent = ":3 jijiji";
+                boton.textContent = "Fin";
             }
         } else {
-            mostrarTexto("aqui termina jijiji te amo");
+            mostrarTexto("Aqui termina jijij te amo");
             boton.disabled = true;
         }
     });
 
-    // Primera línea
+    // Primera línea al cargar
     mostrarTexto(cancion[indice]);
     indice++;
 </script>
 
 </body>
 </html>
-
