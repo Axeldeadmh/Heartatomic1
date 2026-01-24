@@ -5,130 +5,151 @@
 <title>Corazón Atómico</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle at center, #ff7ad9 0%, #2a001a 55%, #12000b 100%);
-        font-family: Arial, sans-serif;
-        overflow: hidden;
-        animation: pulsoFondo 1.29s infinite ease-in-out;
-    }
+/* ====== FONDO PSICODÉLICO ====== */
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
 
-    @keyframes pulsoFondo {
-        0%   { filter: brightness(0.95) saturate(1); }
-        50%  { filter: brightness(1.15) saturate(1.2); }
-        100% { filter: brightness(0.95) saturate(1); }
-    }
+    background:
+        radial-gradient(circle at 30% 20%, rgba(255,80,190,0.25), transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(218,8,134,0.35), transparent 45%),
+        linear-gradient(180deg, #2a001a, #12000b);
 
-    /* MANCHA */
-    body::before {
-        content: "";
-        position: fixed;
-        width: 460px;
-        height: 460px;
-        background: url("mancha.png") no-repeat center / contain;
-        opacity: 0.85;
-        filter: blur(0.5px) brightness(0.75) contrast(1.3);
-        animation: flotar 16s ease-in-out infinite alternate;
-        z-index: 0;
-    }
+    background-size: 200% 200%;
+    animation: fondoViaje 14s ease-in-out infinite;
+}
 
-    @keyframes flotar {
-        from { transform: scale(1) rotate(-2deg); }
-        to   { transform: scale(1.06) rotate(3deg); }
-    }
+@keyframes fondoViaje {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
 
-    /* CUADRO TRANSLÚCIDO */
-    .container {
-        position: relative;
-        z-index: 1;
+/* ====== MANCHA ====== */
+.mancha {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    background: url("mancha/mancha.png") no-repeat center;
+    background-size: contain;
+    opacity: 0.55;
+    filter: blur(2px) contrast(1.2);
+    animation: manchaFlotar 10s ease-in-out infinite;
+    z-index: 0;
+}
 
-        background: rgba(26, 0, 16, 0.45); /* 👈 NO sólido */
-        backdrop-filter: blur(10px) saturate(140%);
-        -webkit-backdrop-filter: blur(10px) saturate(140%);
+@keyframes manchaFlotar {
+    0%   { transform: scale(1) rotate(0deg); }
+    50%  { transform: scale(1.08) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
 
-        border: 2px solid #DA0886;
-        border-radius: 20px;
-        padding: 32px;
-        width: 90%;
-        max-width: 520px;
-        text-align: center;
+/* ====== CUADRO ====== */
+.container {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 520px;
+    padding: 32px;
+    text-align: center;
 
-        box-shadow:
-            0 0 28px rgba(218, 8, 134, 0.7),
-            inset 0 0 18px rgba(255, 122, 217, 0.15);
+    background: rgba(26, 0, 16, 0.45);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
 
-        animation: latidoCaja 2.6s infinite ease-in-out;
-    }
+    border: 1px solid rgba(218, 8, 134, 0.4);
+    box-shadow:
+        0 0 25px rgba(218, 8, 134, 0.45),
+        inset 0 0 20px rgba(255, 120, 200, 0.15);
 
-    @keyframes latidoCaja {
-        0%   { box-shadow: 0 0 22px rgba(218,8,134,0.5); }
-        50%  { box-shadow: 0 0 38px rgba(218,8,134,0.9); }
-        100% { box-shadow: 0 0 22px rgba(218,8,134,0.5); }
-    }
+    animation: pulsoSuave 3.87s ease-in-out infinite; /* ~93 BPM */
+}
 
-    h1 {
-        color: #DA0886;
-        margin-bottom: 20px;
-        letter-spacing: 1px;
-    }
+@keyframes pulsoSuave {
+    0% { box-shadow: 0 0 20px rgba(218,8,134,0.35); }
+    50% { box-shadow: 0 0 32px rgba(218,8,134,0.55); }
+    100% { box-shadow: 0 0 20px rgba(218,8,134,0.35); }
+}
 
-    #texto {
-        color: #ffe6f2;
-        font-size: 1.25em;
-        min-height: 120px;
-        margin-bottom: 28px;
-        white-space: pre-wrap;
-        opacity: 0;
-        transform: translateY(6px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        text-shadow: 0 0 6px rgba(0,0,0,0.6);
-    }
+/* ====== TEXTO ====== */
+h1 {
+    color: #DA0886;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+}
 
-    #texto.mostrar {
-        opacity: 1;
-        transform: translateY(0);
-    }
+#texto {
+    color: #ffe6f2;
+    font-size: 1.2em;
+    min-height: 110px;
+    margin-bottom: 24px;
+    white-space: pre-wrap;
 
-    button {
-        background-color: rgba(218, 8, 134, 0.85);
-        color: white;
-        border: none;
-        padding: 12px 32px;
-        border-radius: 30px;
-        font-size: 1em;
-        cursor: pointer;
-        box-shadow: 0 0 12px rgba(218, 8, 134, 0.8);
-        backdrop-filter: blur(4px);
-    }
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
 
-    button:hover {
-        background-color: rgba(255, 47, 162, 0.95);
-    }
+#texto.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-    button:disabled {
-        background-color: rgba(106, 0, 63, 0.7);
-        cursor: default;
-        box-shadow: none;
-    }
+/* ====== BOTÓN ====== */
+button {
+    background-color: #DA0886;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: pointer;
+
+    box-shadow: 0 0 12px rgba(218,8,134,0.7);
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff2fa2;
+    transform: scale(1.05);
+}
+
+/* ====== GRANO PSICODÉLICO ====== */
+.grain {
+    position: fixed;
+    inset: 0;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+    opacity: 0.05;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    z-index: 2;
+}
 </style>
 </head>
 
 <body>
 
+<div class="mancha"></div>
+
 <div class="container">
     <h1>Corazón Atómico</h1>
     <div id="texto"></div>
-    <button id="boton">Siguiente</button>
+    <button id="boton">Iniciar</button>
 </div>
 
-<audio id="audio" src="audio.mp3" loop></audio>
+<div class="grain"></div>
+
+<!-- AUDIO -->
+<audio id="audio" src="audio/audio.mp3"></audio>
 
 <script>
-    const cancion = [
+/* ✏️ EDITA AQUÍ TU LETRA */
+const textoCancion = [
         "jijijij picale",
         "🎵🎶🎵🎶🎵🎶",
         "Dime si me estoy volviendo loco 🦝",
@@ -148,45 +169,37 @@
         "Esteriliza mi sangre 🩸",
         "y purifica mi amor 💖",
         "y purifica mi amor 💗"
-    ];
+];
 
-    let indice = 0;
-    let audioIniciado = false;
+let indice = 0;
+let iniciado = false;
 
-    const texto = document.getElementById("texto");
-    const boton = document.getElementById("boton");
-    const audio = document.getElementById("audio");
+const texto = document.getElementById("texto");
+const boton = document.getElementById("boton");
+const audio = document.getElementById("audio");
 
-    function mostrarTexto(contenido) {
-        texto.classList.remove("mostrar");
-        setTimeout(() => {
-            texto.textContent = contenido;
-            texto.classList.add("mostrar");
-        }, 200);
+function mostrarLinea(linea) {
+    texto.classList.remove("mostrar");
+    void texto.offsetWidth;
+    texto.textContent = linea;
+    texto.classList.add("mostrar");
+}
+
+boton.addEventListener("click", () => {
+    if (!iniciado) {
+        audio.play().catch(() => {});
+        boton.textContent = ":3";
+        iniciado = true;
     }
 
-    boton.addEventListener("click", () => {
-
-        if (!audioIniciado) {
-            audio.play().catch(() => {});
-            audioIniciado = true;
-        }
-
-        if (indice < cancion.length) {
-            mostrarTexto(cancion[indice]);
-            indice++;
-
-            if (indice === cancion.length) {
-                boton.textContent = ":3";
-            }
-        } else {
-            mostrarTexto("Aqui acaba, ya puedes cerrarlo te amo :3");
-            boton.disabled = true;
-        }
-    });
-
-    mostrarTexto(cancion[indice]);
-    indice++;
+    if (indice < textoCancion.length) {
+        mostrarLinea(textoCancion[indice]);
+        indice++;
+    } else {
+        mostrarLinea("aqui termina jijiji te amo :3");
+        boton.disabled = true;
+    }
+});
 </script>
 
 </body>
